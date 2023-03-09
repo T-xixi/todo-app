@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记事本</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <section id="todoapp">
+        <header class="box">
+            <h1>每日记事</h1>
+            <h3>{{year}} 年 {{month}} 月 {{day}} 日</h3>
+            <input placeholder="请输入任务" autofocus="autofocus" autocomplete="off" v-model="indexValue" @keyup.enter="add">
+        </header>
+        <section>
+            <ul class="todo-list">
+                <li class="todo" v-for="(item,index) in list">
+                    <div>
+                        <span>
+                            {{index+1}}.
+                        </span>
+                        <label>
+                            {{item}}
+                        </label>
+                        <button class="destroy" @click="remove(index)"></button>
+                    </div>
+
+                </li>
+            </ul>
+        </section>
+        <footer class="footer">
+            <!-- 统计和清空 -->
+            <div v-show="list.length>0">
+                <span>
+                    {{list.length}} items left
+                </span>
+                <button class="clear" @click="clear">
+                    Clear
+                </button>
+            </div>
+
+        </footer>
+    </section>
+    <footer class="info">
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var date = new Date();
+        y = date.getFullYear();
+        m = date.getMonth() + 1;
+        d = date.getDate();
+        //  m = m > 10 ? m : '0' + m
+        //  d = d > 10 ? d : '0' + d
+
+
+        var app = new Vue({
+            el: "#todoapp",
+            data: {
+                list: [],
+                indexValue: "",
+                year: y,
+                month: m > 10 ? m : '0' + m,
+                day: d > 10 ? d : '0' + d
+            },
+            methods: {
+                add: function() {
+                    this.list.push(this.indexValue)
+                },
+                remove: function(index) {
+                    this.list.splice(index, 1); //splice(index,number)从index开始删除number个
+                },
+                clear: function() {
+                    this.list = [];
+                    this.indexValue = ""
+                },
+
+
+            }
+        })
+    </script>
+</body>
+
+</html>
