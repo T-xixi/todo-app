@@ -63,8 +63,8 @@
                 list: [],
                 indexValue: "",
                 year: y,
-                month: m > 10 ? m : '0' + m,
-                day: d > 10 ? d : '0' + d
+                month: m >= 10 ? m : '0' + m,
+                day: d >= 10 ? d : '0' + d
             },
             methods: {
                 add: function() {
